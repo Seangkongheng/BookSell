@@ -11,7 +11,7 @@ if(isset($_POST['register']))
     $username=$_POST['username'];
     $Password=$_POST['password'];
 
-    echo $fistName;
+
     //cofirm with pass
 
         

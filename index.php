@@ -602,48 +602,47 @@ if(isset($_SESSION['message'])){
 <section id="editorchoice">
 
 
-<h3 class="text-center mt-5 mt">EDITOR'S CHOICE <i class="fa-solid fa-angle-down"></i></h3>
-        <div class="browserr-box mt-5">
-        <?php
-              $sql="SELECT * FROM book";
-              $sql_qeury=mysqli_query($conn,$sql);
-              if(mysqli_num_rows($sql_qeury)>0)
-              {
-                while($row=mysqli_fetch_assoc($sql_qeury))
+<h3 class="text-center mt-5">EDITOR'S CHOICE <i class="fa-solid fa-angle-down"></i></h3>
+<div class="browserr-box mt-5">
+    <?php
+    $sql = "SELECT * FROM book";
+    $sql_query = mysqli_query($conn, $sql);
 
-                {
-                  ?>
-            <div class="box-broswer-book-editor">
-            
-              <div class="editor-imag">
-              <a href=""> <img src="./admin/upload/<?php echo $row["image"]?>" alt=""></a>
-              </div>
-              </a>
-              <div class="title-broswer-movie mt-1"> 
-              <h4><?php echo $row["book_title"] ?></h4>
-              <i><?php echo $row['Author'] ?></i>
-              <p class="text-danger">$<?php echo $row["price"]?></p>
-              </div>
-                
-              <div class="button-add-cart float-end">
-                
-            
-              <a class="btn btn-primary" href="book_add_tocard.php?id=<?php echo $row['id'] ?>">Add cart</a>
-
-
-
-                <a  class="btn btn-warning" href="">wishlist</a>
-              </div>
-            </div>
-                    <?php
-                  ?>          
-                 <?php
-                }
-              }
-              
+    if (mysqli_num_rows($sql_query) > 0) {
+        while ($row = mysqli_fetch_assoc($sql_query)) {
             ?>
-        </div
+            <div class="box-broswer-book-editor">
+                <!-- Book Image -->
+                <div class="editor-imag">
+                    <a href="#">
+                        <img src="./admin/upload/<?php echo htmlspecialchars($row['image']); ?>" 
+                             alt="<?php echo htmlspecialchars($row['book_title']); ?> Image">
+                    </a>
+                </div>
+
+                <!-- Book Title and Details -->
+                <div class="title-broswer-movie mt-1">
+                    <h4><?php echo htmlspecialchars($row['book_title']); ?></h4>
+                    <i><?php echo htmlspecialchars($row['Author']); ?></i>
+                    <p class="text-danger">$<?php echo htmlspecialchars($row['price']); ?></p>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="button-add-cart float-end">
+                    <!-- <a class="btn btn-primary" href="book_add_tocard.php?id=<?php echo urlencode($row['id']); ?>">Add to Cart</a> -->
+                    <a class="btn btn-primary" href="book_add_tocard.php?id=<?php echo urlencode($row['book_id']); ?>">Add to Cart</a>
+
+                    <a class="btn btn-warning" href="#">Wishlist</a>
+                </div>
+            </div>
+            <?php
+        }
+    } else {
+        echo "<p class='text-center'>No books available.</p>";
+    }
+    ?>
 </div>
+
 </section>   
 <!-- editoer -->
 <!-- Freebook -->
